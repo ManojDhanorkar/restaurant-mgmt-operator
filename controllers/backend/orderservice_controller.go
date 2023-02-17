@@ -18,6 +18,7 @@ package backend
 
 import (
 	"context"
+	"strconv"
 
 	backendv1 "github.com/ManojDhanorkar/restaurant-mgmt-operator/apis/backend/v1"
 	appsv1 "k8s.io/api/apps/v1"
@@ -74,13 +75,11 @@ func (r *OrderServiceReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		return ctrl.Result{}, err
 	}
 
-	log.Info(orderService.Name, orderService.Namespace, orderService.Spec.Image, orderService.Spec.Size)
+	log.Info(orderService.Name, orderService.Namespace, orderService.Spec.Size)
 
-	// Add const values for mandatory specs ( if left blank)
-	log.Info("Checking orderService mandatory specs")
+	//log.Info("Deployment Details", "Deployment.Image", orderService.Spec.Image, "Deployment.Size", orderService.Spec.Size)
 
 	// Check if the Deployment already exists, if not create a new one
-
 	found := &appsv1.Deployment{}
 	err = r.Client.Get(ctx, types.NamespacedName{Name: orderService.Name, Namespace: orderService.Namespace}, found)
 	//log.Info(*found.)
@@ -110,7 +109,7 @@ func (r *OrderServiceReconciler) DeploymentForOrderService(ctx context.Context, 
 
 	var replicas = orderService.Spec.Size
 
-	log.Info("Creating DeploymentForOrderService with replicas ", replicas)
+	log.Info(strconv.Itoa(int(replicas)))
 
 	var labels = map[string]string{
 		"app": req.NamespacedName.Name,
@@ -164,6 +163,7 @@ func (r *OrderServiceReconciler) DeploymentForOrderService(ctx context.Context, 
 			}, // PodTemplateSpec
 		}, // Spec
 	} // Deployment
+
 	// Set AWSManager instance as the owner and controller
 	ctrl.SetControllerReference(orderService, Deployment, r.Scheme)
 	return Deployment
