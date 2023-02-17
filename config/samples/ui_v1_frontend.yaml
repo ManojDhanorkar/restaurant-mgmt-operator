@@ -1,0 +1,12 @@
+apiVersion: ui.xyzcompany.com/v1
+kind: Frontend
+metadata:
+  labels:
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: frontend-sample
+    app.kubernetes.io/part-of: restaurant-mgmt-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: restaurant-mgmt-operator
+  name: frontend-sample
+spec:
+  # TODO(user): Add fields here

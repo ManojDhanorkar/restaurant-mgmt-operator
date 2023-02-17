@@ -1,0 +1,17 @@
+apiVersion: backend.xyzcompany.com/v1
+kind: OrderService
+metadata:
+  labels:
+    app.kubernetes.io/name: orderservice
+    app.kubernetes.io/instance: orderservice-sample
+    app.kubernetes.io/part-of: restaurant-mgmt-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: restaurant-mgmt-operator
+  name: orderservice-sample
+spec:
+  # Provide image name
+  image: "quay.io/manoj_dhanorkar/order-service:v1.0"
+  
+  # Provide replica count for deployment  
+  size: 2
+  

@@ -1,0 +1,27 @@
+# permissions for end users to view orderservices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: orderservice-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: restaurant-mgmt-operator
+    app.kubernetes.io/part-of: restaurant-mgmt-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: orderservice-viewer-role
+rules:
+- apiGroups:
+  - backend.xyzcompany.com
+  resources:
+  - orderservices
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - backend.xyzcompany.com
+  resources:
+  - orderservices/status
+  verbs:
+  - get
